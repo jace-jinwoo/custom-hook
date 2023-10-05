@@ -6,15 +6,11 @@ const useHttp = (reqConfig, applyData) => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(
-        reqConfig.url,
-        {
-          method: reqConfig.method,
-          headers: reqConfig.headers,
-          body: JSON.stringify(reqConfig.body),
-        }
-        //   'https://react-http-6b4a6.firebaseio.com/tasks.json'
-      );
+      const response = await fetch(reqConfig.url, {
+        method: reqConfig.method ?? "GET",
+        headers: reqConfig.headers ?? {},
+        body: JSON.stringify(reqConfig.body),
+      });
 
       if (!response.ok) {
         throw new Error("Request failed!");
@@ -29,7 +25,7 @@ const useHttp = (reqConfig, applyData) => {
   };
 
   useEffect(() => {
-    fetchTasks();
+    callApis();
   }, []);
 
   return {
